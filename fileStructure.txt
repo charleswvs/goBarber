@@ -1,0 +1,5 @@
+src/        where all mainted code will be kept
+ |- app.js      app structure
+ |- route.js        app routes
+ |- server.js       server definitions
+nodemon.js      configure nodemon to work with sucrase
