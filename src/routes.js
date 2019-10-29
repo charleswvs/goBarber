@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import User from './app/models/User';
+// import User from './app/models/User'; // in case u need to test user creation or something
 import UserController from './app/controllers/UserController';
+import SessionController from './app/controllers/SessionController';
 
 const routes = new Router();
 
-routes.post('./users', UserController.store);
+routes.post('/users', UserController.store); // inserts a new user in the database
+routes.post('/sessions', SessionController.store); // login and session controler
 
 // Uma maneira de testar o envio do meus dados
 // routes.get('/', async (req, res) => {

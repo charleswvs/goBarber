@@ -1,11 +1,23 @@
 import User from '../models/User';
 
 class UserController {
-  // recebe os dados informados pelo usuário e cria um novo registro na base de dados
+  // receives user data from the body, and creates a new registry in database
   async store(req, res) {
-    const user = await User.create(req.body);
+    // check if user already exists
+    const userExists = await User.findOne({ where: { email: req.body.email } });
 
-    return res.json(user);
+    // returns an erro if it does
+    if (userExists) {
+      return res.status(400).json({ error: 'User already exists.' });
+    }
+
+    // create a new user using given information
+    const { id, name, email, provider } = await User.create(req.body);
+
+    // returns only what is interesting for the front end
+    console.log(id, name, email, provider);
+
+    return res.json({ id, name, email, provider });
   }
 }
 

@@ -1,0 +1,39 @@
+import jwt from 'jsonwebtoken';
+import authConfig from '../../config/auth';
+import User from '../models/User';
+
+// controla a sessão do usuário e verifica se ele está digitando os dados corretos
+class SessionController {
+  async store(req, res) {
+    const { email, password } = req.body; // get from body email and password
+
+    const user = await User.findOne({ where: { email } }); // find if a user using that email exists
+
+    // tests if the user was foud
+    if (!user) {
+      return req.status(401).json({ error: 'User not found' });
+    }
+
+    // check if email matches password
+    if (!(await user.checkPassword(password))) {
+      return res.status(401).json({ error: 'Password does not macth' });
+    }
+
+    // saves id and name from user in a variable
+    const { id, name } = user;
+
+    // return the user data do however called this function, with a unique token
+    return res.json({
+      user: {
+        id,
+        name,
+        email,
+      },
+      token: jwt.sign({ id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn,
+      }),
+    });
+  }
+}
+
+export default new SessionController();

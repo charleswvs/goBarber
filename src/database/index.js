@@ -9,7 +9,7 @@ class Database {
     this.init();
   }
 
-  // conexão com a base de dados
+  // creates a connection with database
   init() {
     this.connection = new Sequelize(databaseConfig);
 
