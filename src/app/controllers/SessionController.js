@@ -1,10 +1,24 @@
 import jwt from 'jsonwebtoken';
+import * as Yup from 'yup';
 import authConfig from '../../config/auth';
 import User from '../models/User';
 
 // controla a sessão do usuário e verifica se ele está digitando os dados corretos
 class SessionController {
   async store(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string().required(),
+    });
+
+    // test schema's requirement with body's information
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails ' });
+    }
+
     const { email, password } = req.body; // get from body email and password
 
     const user = await User.findOne({ where: { email } }); // find if a user using that email exists
