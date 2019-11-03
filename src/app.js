@@ -1,5 +1,6 @@
 // const express = require('express') - common js
 import express from 'express';
+import path from 'path';
 import routes from './routes';
 
 import './database';
@@ -13,6 +14,10 @@ class App {
 
   middlewares() {
     this.server.use(express.json()); // using jsons requests
+    this.server.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
   }
 
   routes() {
