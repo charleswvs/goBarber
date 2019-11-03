@@ -25,7 +25,7 @@ class SessionController {
 
     // tests if the user was foud
     if (!user) {
-      return req.status(401).json({ error: 'User not found' });
+      return res.status(401).json({ error: 'User not found' });
     }
 
     // check if email matches password
