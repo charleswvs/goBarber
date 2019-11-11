@@ -10,6 +10,7 @@ import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
+import AvailableController from './app/controllers/AvailableController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -24,6 +25,7 @@ routes.use(authMiddleware); // if you use the middleware before any route it wil
 routes.put('/users', UserController.update); // update user
 
 routes.get('/providers', ProviderController.index);
+routes.get('/providers/:providerID/available', AvailableController.index);
 
 routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
