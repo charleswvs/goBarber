@@ -2,14 +2,17 @@ import mongoose from 'mongoose';
 
 const NotificationSchema = new mongoose.Schema(
   {
+    // Notification content
     content: {
       type: String,
       required: true,
     },
+    // User destinated
     user: {
       type: Number,
       required: true,
     },
+    // If read
     read: {
       type: Boolean,
       required: true,
@@ -17,6 +20,7 @@ const NotificationSchema = new mongoose.Schema(
     },
   },
   {
+    // all registers will have "created_at" and "updated_at"
     timestamps: true,
   }
 );
