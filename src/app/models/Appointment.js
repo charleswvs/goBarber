@@ -6,6 +6,7 @@ class Appointment extends Model {
     super.init(
       {
         date: Sequelize.DATE,
+        // TODO: correct "canceled_at" typo, database is also wrong
         canceled_at: Sequelize.DATE,
         past: {
           type: Sequelize.VIRTUAL,
